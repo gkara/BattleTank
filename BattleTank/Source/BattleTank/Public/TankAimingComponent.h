@@ -28,6 +28,7 @@ public:
 private:
 	UTankBarrel* Barrel = nullptr;
 
-	void MoveBarrelTowards(FVector AimDirection);
+	TArray<AActor*> ActorsToIgnore;
 
+	void MoveBarrelTowards(FVector AimDirection);
 };
