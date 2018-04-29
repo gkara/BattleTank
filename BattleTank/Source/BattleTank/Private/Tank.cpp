@@ -24,7 +24,7 @@ void ATank::BeginPlay()
 
 void ATank::AimAt(FVector HitLocation)
 {
-	if (!TankAimingComponent)
+	if (!ensure(TankAimingComponent))
 		return;
 
 	TankAimingComponent->AimAt(HitLocation, LaunchSpeed);
@@ -32,13 +32,14 @@ void ATank::AimAt(FVector HitLocation)
 
 void ATank::Fire()
 {
+	if (!ensure(Barrel))
+		return;
+
 	bool isReloaded = (FPlatformTime::Seconds() - LastFireTime) > ReloadTimeInSeconds;
-	
-	
+		
 	//UE_LOG(LogTemp, Warning, TEXT("Projectile fired at %f"), isReloaded);
 
-
-	if (Barrel && isReloaded)// && ProjectileBlueprint)
+	if (isReloaded)// && ProjectileBlueprint)
 	{
 
 		// Spawn a projectile at the socket location on the barrel
